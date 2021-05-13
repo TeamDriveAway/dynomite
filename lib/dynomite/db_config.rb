@@ -41,11 +41,11 @@ module Dynomite::DbConfig
     # for DynamoDB local to time out, about 10 seconds...
     # This wastes less of the users time.
     def check_dynamodb_local!(endpoint)
-      return unless endpoint && endpoint.include?("8000")
+      return unless endpoint
       uri=URI.parse(endpoint)
       open = port_open?(uri.host, uri.port, 0.2)
       unless open
-        raise "You have configured your app to use DynamoDB local, but it is not running.  Please start DynamoDB local. Example: brew cask install dynamodb-local && dynamodb-local"
+        raise "You have configured your app to use DynamoDB at endpoint, #{uri} , but it is not running.  Please start DynamoDB local. Example: brew cask install dynamodb-local && dynamodb-local"
       end
     end
 
